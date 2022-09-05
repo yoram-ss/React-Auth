@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import useToken from "./components/useToken";
 
 function App() {
+  const { token, setToken } = useToken();
+
+  if (!token) return <Login setToken={setToken} />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="flex-center">
+        <h1>Dashboard</h1>
+        <p>Welcome back, you are login</p>
+        <Routes>
+          <Route path="profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
